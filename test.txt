@@ -1,0 +1,7 @@
+	implementation 'org.springframework.boot:spring-boot-starter'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation(platform("com.netflix.graphql.dgs:graphql-dgs-platform-dependencies:latest.release"))
+	implementation("com.netflix.graphql.dgs:graphql-dgs-spring-boot-starter")
+	testImplementation("com.netflix.graphql.dgs:graphql-dgs-client")
+	testImplementation("org.springframework.security:spring-security-test")

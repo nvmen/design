@@ -5,6 +5,22 @@
 	implementation("com.netflix.graphql.dgs:graphql-dgs-spring-boot-starter")
 	testImplementation("com.netflix.graphql.dgs:graphql-dgs-client")
 	testImplementation("org.springframework.security:spring-security-test")
+	
+	
+	    implementation(platform("com.netflix.graphql.dgs:graphql-dgs-platform-dependencies:latest.release"))
+    implementation("com.netflix.graphql.dgs:graphql-dgs-spring-boot-starter")
+    implementation("com.netflix.graphql.dgs:graphql-dgs-extended-scalars")
+    implementation("com.netflix.graphql.dgs:graphql-dgs-subscriptions-websockets-autoconfigure")
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("com.github.javafaker:javafaker:1.+")
+    implementation("com.github.ben-manes.caffeine:caffeine")
+    implementation("org.springframework.boot:spring-boot-starter-security")
+
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("com.netflix.graphql.dgs:graphql-dgs-client")
+    testImplementation("org.springframework.boot:spring-boot-starter-webflux")
+    testImplementation("io.projectreactor:reactor-test")
+    testImplementation("org.springframework.security:spring-security-test")
 	\
 	
 	

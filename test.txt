@@ -30,3 +30,7 @@ distributionUrl=https\://services.gradle.org/distributions/gradle-7.5.1-bin.zip
 zipStoreBase=GRADLE_USER_HOME
 zipStorePath=wrapper/dists
 
+// https://mvnrepository.com/artifact/com.netflix.dgs.codegen/com.netflix.dgs.codegen.gradle.plugin
+implementation 'com.netflix.dgs.codegen:com.netflix.dgs.codegen.gradle.plugin:5.2.4'
+
+

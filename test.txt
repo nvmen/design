@@ -33,4 +33,6 @@ zipStorePath=wrapper/dists
 // https://mvnrepository.com/artifact/com.netflix.dgs.codegen/com.netflix.dgs.codegen.gradle.plugin
 implementation 'com.netflix.dgs.codegen:com.netflix.dgs.codegen.gradle.plugin:5.2.4'
 
+// https://mvnrepository.com/artifact/com.graphql-java-kickstart/graphql-spring-boot-starter-test
+testImplementation group: 'com.graphql-java-kickstart', name: 'graphql-spring-boot-starter-test', version: '14.0.0'
 

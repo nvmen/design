@@ -36,3 +36,5 @@ implementation 'com.netflix.dgs.codegen:com.netflix.dgs.codegen.gradle.plugin:5.
 // https://mvnrepository.com/artifact/com.graphql-java-kickstart/graphql-spring-boot-starter-test
 testImplementation group: 'com.graphql-java-kickstart', name: 'graphql-spring-boot-starter-test', version: '14.0.0'
 
+https://medium.com/@philippechampion58/testing-your-graphql-apis-in-a-spring-boot-app-9fe02ebccc35
+

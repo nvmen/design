@@ -1,40 +1,22 @@
-	implementation 'org.springframework.boot:spring-boot-starter'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	implementation("org.springframework.boot:spring-boot-starter-web")
-	implementation(platform("com.netflix.graphql.dgs:graphql-dgs-platform-dependencies:latest.release"))
-	implementation("com.netflix.graphql.dgs:graphql-dgs-spring-boot-starter")
-	testImplementation("com.netflix.graphql.dgs:graphql-dgs-client")
-	testImplementation("org.springframework.security:spring-security-test")
-	
-	
-	    implementation(platform("com.netflix.graphql.dgs:graphql-dgs-platform-dependencies:latest.release"))
-    implementation("com.netflix.graphql.dgs:graphql-dgs-spring-boot-starter")
-    implementation("com.netflix.graphql.dgs:graphql-dgs-extended-scalars")
-    implementation("com.netflix.graphql.dgs:graphql-dgs-subscriptions-websockets-autoconfigure")
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("com.github.javafaker:javafaker:1.+")
-    implementation("com.github.ben-manes.caffeine:caffeine")
-    implementation("org.springframework.boot:spring-boot-starter-security")
+import { saveAs } from 'file-saver';
+import * as JSZip from 'jszip';
 
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("com.netflix.graphql.dgs:graphql-dgs-client")
-    testImplementation("org.springframework.boot:spring-boot-starter-webflux")
-    testImplementation("io.projectreactor:reactor-test")
-    testImplementation("org.springframework.security:spring-security-test")
-	\
-	
-	
-distributionBase=GRADLE_USER_HOME
-distributionPath=wrapper/dists
-distributionUrl=https\://services.gradle.org/distributions/gradle-7.5.1-bin.zip
-zipStoreBase=GRADLE_USER_HOME
-zipStorePath=wrapper/dists
+// ...
 
-// https://mvnrepository.com/artifact/com.netflix.dgs.codegen/com.netflix.dgs.codegen.gradle.plugin
-implementation 'com.netflix.dgs.codegen:com.netflix.dgs.codegen.gradle.plugin:5.2.4'
+// Convert the Base64 data to a Blob object
+const binaryData = atob(base64Data);
+const byteNumbers = new Array(binaryData.length);
+for (let i = 0; i < binaryData.length; i++) {
+  byteNumbers[i] = binaryData.charCodeAt(i);
+}
+const byteArray = new Uint8Array(byteNumbers);
+const blob = new Blob([byteArray]);
 
-// https://mvnrepository.com/artifact/com.graphql-java-kickstart/graphql-spring-boot-starter-test
-testImplementation group: 'com.graphql-java-kickstart', name: 'graphql-spring-boot-starter-test', version: '14.0.0'
+// Create a new ZIP file and add the file to it
+const zip = new JSZip();
+zip.file('my-file.zip', blob);
 
-https://medium.com/@philippechampion58/testing-your-graphql-apis-in-a-spring-boot-app-9fe02ebccc35
-The system will get the swagger json file automatically from the project. If uploading swagger json file, it will be taken from the upload file
+// Generate the ZIP file and download it
+zip.generateAsync({ type: 'blob' }).then(function (content) {
+  saveAs(content, 'my-file.zip');
+});

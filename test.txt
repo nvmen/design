@@ -1,4 +1,53 @@
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
+
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+
+public class CreateWorkItem {
+    public static void main(String[] args) throws IOException {
+        String orgUrl = "https://dev.azure.com/<your-organization>";
+        String personalAccessToken = "<your-personal-access-token>";
+        
+        HttpClient httpClient = HttpClientBuilder.create().build();
+        HttpPost request = new HttpPost(orgUrl + "/<your-project-name>/_apis/wit/workitems/$Task?api-version=6.1-preview.3");
+        request.setHeader("Authorization", "Basic " + Base64.getEncoder().encodeToString((":" + personalAccessToken).getBytes(StandardCharsets.UTF_8)));
+        request.setHeader("Content-Type", "application/json-patch+json");
+
+        // Create a JSON patch document with the work item fields
+        String json = "[{\"op\":\"add\",\"path\":\"/fields/System.Title\",\"value\":\"New work item from Java\"},"
+                + "{\"op\":\"add\",\"path\":\"/fields/System.Description\",\"value\":\"This is a new work item created from Java\"},"
+                + "{\"op\":\"add\",\"path\":\"/fields/System.AssignedTo\",\"value\":\"John Doe\"},"
+                + "{\"op\":\"add\",\"path\":\"/fields/System.AreaPath\",\"value\":\"<your-project-name>\"}]";
+        HttpEntity entity = new StringEntity(json);
+        request.setEntity(entity);
+
+        // Send the HTTP request and get the response
+        HttpResponse response = httpClient.execute(request);
+        HttpEntity responseEntity = response.getEntity();
+        String responseBody = EntityUtils.toString(responseEntity);
+        EntityUtils.consume(responseEntity);
+
+        if (response.getStatusLine().getStatusCode() == 200) {
+            // Work item created successfully
+            System.out.println("Work item created: " + responseBody);
+        } else {
+            // Error creating work item
+            System.out.println("Error creating work item: " + responseBody);
+        }
+    }
+}
+
+
+
+
+
 https://learn.microsoft.com/en-us/azure/devops/integrate/get-started/rest/samples?view=azure-devops
 dependencies {
     implementation 'com.microsoft.azure:azure-devops:7.1.0'

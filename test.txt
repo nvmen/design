@@ -1,22 +1,67 @@
-import { saveAs } from 'file-saver';
-import * as JSZip from 'jszip';
-
-// ...
-
-// Convert the Base64 data to a Blob object
-const binaryData = atob(base64Data);
-const byteNumbers = new Array(binaryData.length);
-for (let i = 0; i < binaryData.length; i++) {
-  byteNumbers[i] = binaryData.charCodeAt(i);
+dependencies {
+    implementation 'com.microsoft.azure:azure-devops:7.1.0'
+    implementation 'commons-fileupload:commons-fileupload:1.4'
 }
-const byteArray = new Uint8Array(byteNumbers);
-const blob = new Blob([byteArray]);
 
-// Create a new ZIP file and add the file to it
-const zip = new JSZip();
-zip.file('my-file.zip', blob);
+import com.microsoft.alm.client.AzureDevOpsHttpClient;
+import com.microsoft.alm.workitemtracking.webapi.WorkItemTrackingHttpClient;
+import com.microsoft.alm.workitemtracking.webapi.models.*;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 
-// Generate the ZIP file and download it
-zip.generateAsync({ type: 'blob' }).then(function (content) {
-  saveAs(content, 'my-file.zip');
-});
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.nio.file.Files;
+
+public class CreateWorkItemWithAttachments {
+    public static void main(String[] args) throws IOException {
+        String orgUrl = "https://dev.azure.com/<your-organization>";
+        String personalAccessToken = "<your-personal-access-token>";
+        String projectName = "<your-project-name>";
+        
+        AzureDevOpsHttpClient client = new AzureDevOpsHttpClient(new URI(orgUrl), personalAccessToken);
+        WorkItemTrackingHttpClient witClient = client.getWorkItemTrackingHttpClient();
+        
+        // Create a new work item object
+        JsonPatchDocument document = new JsonPatchDocument();
+        document.add(new JsonPatchOperation()
+                .op(Operation.ADD)
+                .path("/fields/System.Title")
+                .value("New work item with attachments"));
+        document.add(new JsonPatchOperation()
+                .op(Operation.ADD)
+                .path("/fields/System.Description")
+                .value("This is a new work item created from Java with attachments"));
+        document.add(new JsonPatchOperation()
+                .op(Operation.ADD)
+                .path("/fields/System.AssignedTo")
+                .value("John Doe"));
+        document.add(new JsonPatchOperation()
+                .op(Operation.ADD)
+                .path("/fields/System.AreaPath")
+                .value(projectName));
+        
+        // Create the work item
+        WorkItem workItem = witClient.createWorkItem(null, document, projectName, "Task");
+        
+        // Attach files to the work item
+        DiskFileItemFactory factory = new DiskFileItemFactory();
+        File tempDir = new File(System.getProperty("java.io.tmpdir"));
+        factory.setRepository(tempDir);
+
+        File file1 = new File("<file-path-1>");
+        FileItem item1 = new DiskFileItem("file1", Files.probeContentType(file1.toPath()), false, file1.getName(), (int) file1.length(), file1.getParentFile());
+        try (InputStream input = Files.newInputStream(file1.toPath())) {
+            Files.copy(input, item1.getOutputStream());
+        }
+        AttachmentReference attachment1 = witClient.createAttachment(item1.getInputStream(), workItem.getFields().getId().toString(), file1.getName());
+        
+        File file2 = new File("<file-path-2>");
+        FileItem item2 = new DiskFileItem("file2", Files.probeContentType(file2.toPath()), false, file2.getName(), (int) file2.length(), file2.getParentFile());
+        try (InputStream input = Files.newInputStream(file2.toPath())) {
+            Files.copy(input, item2.getOutputStream());
+        }
+        AttachmentReference attachment2 = witClient.createAttachment(item2.getInputStream(), workItem.getFields().getId().toString

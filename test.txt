@@ -1,3 +1,5 @@
+
+https://learn.microsoft.com/en-us/azure/devops/integrate/get-started/rest/samples?view=azure-devops
 dependencies {
     implementation 'com.microsoft.azure:azure-devops:7.1.0'
     implementation 'commons-fileupload:commons-fileupload:1.4'

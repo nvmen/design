@@ -1,3 +1,5 @@
+
+https://powerusers.microsoft.com/t5/Building-Flows/Create-work-item-at-Azure-DevOps-from-an-email-with-attachments/m-p/259677/highlight/true#M26199
 https://github.com/hkarthik7/azure-devops-java-sdk/tree/main/azd/src/main/java/org/azd/workitemtracking/types
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;

@@ -118,3 +118,4 @@ public class CreateWorkItemWithAttachments {
             Files.copy(input, item2.getOutputStream());
         }
         AttachmentReference attachment2 = witClient.createAttachment(item2.getInputStream(), workItem.getFields().getId().toString
+         Love you xxx

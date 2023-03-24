@@ -1,121 +1,38 @@
+@Injectable()
+export class CustomDateParserFormatter extends NgbDateParserFormatter {
+  readonly DELIMITER = '/';
 
-https://powerusers.microsoft.com/t5/Building-Flows/Create-work-item-at-Azure-DevOps-from-an-email-with-attachments/m-p/259677/highlight/true#M26199
-https://github.com/hkarthik7/azure-devops-java-sdk/tree/main/azd/src/main/java/org/azd/workitemtracking/types
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.util.EntityUtils;
-
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-
-public class CreateWorkItem {
-    public static void main(String[] args) throws IOException {
-        String orgUrl = "https://dev.azure.com/<your-organization>";
-        String personalAccessToken = "<your-personal-access-token>";
-        
-        HttpClient httpClient = HttpClientBuilder.create().build();
-        HttpPost request = new HttpPost(orgUrl + "/<your-project-name>/_apis/wit/workitems/$Task?api-version=6.1-preview.3");
-        request.setHeader("Authorization", "Basic " + Base64.getEncoder().encodeToString((":" + personalAccessToken).getBytes(StandardCharsets.UTF_8)));
-        request.setHeader("Content-Type", "application/json-patch+json");
-
-        // Create a JSON patch document with the work item fields
-        String json = "[{\"op\":\"add\",\"path\":\"/fields/System.Title\",\"value\":\"New work item from Java\"},"
-                + "{\"op\":\"add\",\"path\":\"/fields/System.Description\",\"value\":\"This is a new work item created from Java\"},"
-                + "{\"op\":\"add\",\"path\":\"/fields/System.AssignedTo\",\"value\":\"John Doe\"},"
-                + "{\"op\":\"add\",\"path\":\"/fields/System.AreaPath\",\"value\":\"<your-project-name>\"}]";
-        HttpEntity entity = new StringEntity(json);
-        request.setEntity(entity);
-
-        // Send the HTTP request and get the response
-        HttpResponse response = httpClient.execute(request);
-        HttpEntity responseEntity = response.getEntity();
-        String responseBody = EntityUtils.toString(responseEntity);
-        EntityUtils.consume(responseEntity);
-
-        if (response.getStatusLine().getStatusCode() == 200) {
-            // Work item created successfully
-            System.out.println("Work item created: " + responseBody);
-        } else {
-            // Error creating work item
-            System.out.println("Error creating work item: " + responseBody);
-        }
+  parse(value: string): NgbDateStruct | null {
+    if (value) {
+      const dateParts = value.trim().split(this.DELIMITER);
+      if (dateParts.length === 1 && isNumber(dateParts[0])) {
+        return {year: toInteger(dateParts[0]), month: null, day: null};
+      } else if (dateParts.length === 2 && isNumber(dateParts[0]) && isNumber(dateParts[1])) {
+        return {year: toInteger(dateParts[1]), month: toInteger(dateParts[0]), day: null};
+      } else if (dateParts.length === 3 && isNumber(dateParts[0]) && isNumber(dateParts[1]) && isNumber(dateParts[2])) {
+        return {year: toInteger(dateParts[2]), month: toInteger(dateParts[1]), day: toInteger(dateParts[0])};
+      }
     }
+    return null;
+  }
+
+  format(date: NgbDateStruct | null): string {
+    return date ? `${padNumber(date.day)}/${padNumber(date.month)}/${date.year}` : '';
+  }
 }
 
-
-
-
-
-https://learn.microsoft.com/en-us/azure/devops/integrate/get-started/rest/samples?view=azure-devops
-dependencies {
-    implementation 'com.microsoft.azure:azure-devops:7.1.0'
-    implementation 'commons-fileupload:commons-fileupload:1.4'
+function padNumber(value: number) {
+  if (isNumber(value)) {
+    return `0${value}`.slice(-2);
+  } else {
+    return '';
+  }
 }
 
-import com.microsoft.alm.client.AzureDevOpsHttpClient;
-import com.microsoft.alm.workitemtracking.webapi.WorkItemTrackingHttpClient;
-import com.microsoft.alm.workitemtracking.webapi.models.*;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.disk.DiskFileItem;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+function isNumber(value: any): boolean {
+  return !isNaN(toInteger(value)) && typeof value === 'number';
+}
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
-import java.nio.file.Files;
-
-public class CreateWorkItemWithAttachments {
-    public static void main(String[] args) throws IOException {
-        String orgUrl = "https://dev.azure.com/<your-organization>";
-        String personalAccessToken = "<your-personal-access-token>";
-        String projectName = "<your-project-name>";
-        
-        AzureDevOpsHttpClient client = new AzureDevOpsHttpClient(new URI(orgUrl), personalAccessToken);
-        WorkItemTrackingHttpClient witClient = client.getWorkItemTrackingHttpClient();
-        
-        // Create a new work item object
-        JsonPatchDocument document = new JsonPatchDocument();
-        document.add(new JsonPatchOperation()
-                .op(Operation.ADD)
-                .path("/fields/System.Title")
-                .value("New work item with attachments"));
-        document.add(new JsonPatchOperation()
-                .op(Operation.ADD)
-                .path("/fields/System.Description")
-                .value("This is a new work item created from Java with attachments"));
-        document.add(new JsonPatchOperation()
-                .op(Operation.ADD)
-                .path("/fields/System.AssignedTo")
-                .value("John Doe"));
-        document.add(new JsonPatchOperation()
-                .op(Operation.ADD)
-                .path("/fields/System.AreaPath")
-                .value(projectName));
-        
-        // Create the work item
-        WorkItem workItem = witClient.createWorkItem(null, document, projectName, "Task");
-        
-        // Attach files to the work item
-        DiskFileItemFactory factory = new DiskFileItemFactory();
-        File tempDir = new File(System.getProperty("java.io.tmpdir"));
-        factory.setRepository(tempDir);
-
-        File file1 = new File("<file-path-1>");
-        FileItem item1 = new DiskFileItem("file1", Files.probeContentType(file1.toPath()), false, file1.getName(), (int) file1.length(), file1.getParentFile());
-        try (InputStream input = Files.newInputStream(file1.toPath())) {
-            Files.copy(input, item1.getOutputStream());
-        }
-        AttachmentReference attachment1 = witClient.createAttachment(item1.getInputStream(), workItem.getFields().getId().toString(), file1.getName());
-        
-        File file2 = new File("<file-path-2>");
-        FileItem item2 = new DiskFileItem("file2", Files.probeContentType(file2.toPath()), false, file2.getName(), (int) file2.length(), file2.getParentFile());
-        try (InputStream input = Files.newInputStream(file2.toPath())) {
-            Files.copy(input, item2.getOutputStream());
-        }
-        AttachmentReference attachment2 = witClient.createAttachment(item2.getInputStream(), workItem.getFields().getId().toString
-         Love you xxx
+function toInteger(value: any): number {
+  return parseInt(`${value}`, 10);
+}

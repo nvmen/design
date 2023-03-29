@@ -1,38 +1,27 @@
-@Injectable()
-export class CustomDateParserFormatter extends NgbDateParserFormatter {
-  readonly DELIMITER = '/';
-
-  parse(value: string): NgbDateStruct | null {
-    if (value) {
-      const dateParts = value.trim().split(this.DELIMITER);
-      if (dateParts.length === 1 && isNumber(dateParts[0])) {
-        return {year: toInteger(dateParts[0]), month: null, day: null};
-      } else if (dateParts.length === 2 && isNumber(dateParts[0]) && isNumber(dateParts[1])) {
-        return {year: toInteger(dateParts[1]), month: toInteger(dateParts[0]), day: null};
-      } else if (dateParts.length === 3 && isNumber(dateParts[0]) && isNumber(dateParts[1]) && isNumber(dateParts[2])) {
-        return {year: toInteger(dateParts[2]), month: toInteger(dateParts[1]), day: toInteger(dateParts[0])};
-      }
-    }
-    return null;
-  }
-
-  format(date: NgbDateStruct | null): string {
-    return date ? `${padNumber(date.day)}/${padNumber(date.month)}/${date.year}` : '';
-  }
+table.rounded-corners {
+ border-spacing: 0;
+ border-collapse: separate;
+ border-radius: 10px;
+ border: 1px solid black;
 }
 
-function padNumber(value: number) {
-  if (isNumber(value)) {
-    return `0${value}`.slice(-2);
-  } else {
-    return '';
-  }
+/ Apply a border to the right of all but the last column /
+table.rounded-corners th:not(:last-child),
+table.rounded-corners td:not(:last-child) {
+ border-right: 1px solid black;
 }
 
-function isNumber(value: any): boolean {
-  return !isNaN(toInteger(value)) && typeof value === 'number';
-}
-
-function toInteger(value: any): number {
-  return parseInt(`${value}`, 10);
+/ Apply a border to the bottom of all but the last row /
+table.rounded-corners>thead>tr:not(:last-child)>th,
+table.rounded-corners>thead>tr:not(:last-child)>td,
+table.rounded-corners>tbody>tr:not(:last-child)>th,
+table.rounded-corners>tbody>tr:not(:last-child)>td,
+table.rounded-corners>tfoot>tr:not(:last-child)>th,
+table.rounded-corners>tfoot>tr:not(:last-child)>td,
+table.rounded-corners>tr:not(:last-child)>td,
+table.rounded-corners>tr:not(:last-child)>th,
+table.rounded-corners>thead:not(:last-child),
+table.rounded-corners>tbody:not(:last-child),
+table.rounded-corners>tfoot:not(:last-child) {
+ border-bottom: 1px solid black;
 }

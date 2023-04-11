@@ -1,1 +1,2 @@
 I think we separate the frontend and backend and authenticate via token. I will implement authentication according to this solution.
+https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-browser/docs/initialization.md

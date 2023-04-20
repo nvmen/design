@@ -1,2 +1,16 @@
-I think we separate the frontend and backend and authenticate via token. I will implement authentication according to this solution.
-https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-browser/docs/initialization.md
+import { fixture, html, expect } from 'vitest';
+
+import { fixture, html, expect } from 'vitest';
+import '../my-element.js';
+
+describe('my-element', () => {
+  it('displays the default message', async () => {
+    const el = await fixture(html`<my-element></my-element>`);
+    expect(el.shadowRoot.textContent.trim()).to.equal('Hello, World!');
+  });
+
+  it('displays a custom message', async () => {
+    const el = await fixture(html`<my-element message="Test"></my-element>`);
+    expect(el.shadowRoot.textContent.trim()).to.equal('Test');
+  });
+});

@@ -1,16 +1,38 @@
-import { fixture, html, expect } from 'vitest';
+@Configuration
+@EnableWebSecurity
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-import { fixture, html, expect } from 'vitest';
-import '../my-element.js';
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+    http
+      .cors()
+      .and()
+      // other security configurations
+  }
 
-describe('my-element', () => {
-  it('displays the default message', async () => {
-    const el = await fixture(html`<my-element></my-element>`);
-    expect(el.shadowRoot.textContent.trim()).to.equal('Hello, World!');
-  });
+  @Bean
+  public CorsConfigurationSource corsConfigurationSource() {
+    CorsConfiguration configuration = new CorsConfiguration();
+    configuration.setAllowedOrigins(Arrays.asList("*"));
+    configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+    configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
 
-  it('displays a custom message', async () => {
-    const el = await fixture(html`<my-element message="Test"></my-element>`);
-    expect(el.shadowRoot.textContent.trim()).to.equal('Test');
-  });
-});
+    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    source.registerCorsConfiguration("/**", configuration);
+
+    return source;
+  }
+}
+In the configure method, you can call the cors() method to enable CORS support. This will add a CorsFilter to the Spring Security filter chain, which will intercept incoming requests and handle CORS headers.
+
+Then, you can define a CorsConfigurationSource bean to configure the allowed origins, methods, and headers. In this example, we allow requests from any origin (*), and support GET, POST, PUT, and DELETE methods. We also allow the Authorization and Content-Type headers.
+
+Finally, we register the CorsConfiguration with the UrlBasedCorsConfigurationSource, and return the source bean.
+
+Note that this example allows requests from any origin, which may not be secure in some cases. You should modify the allowed origins based on your specific requirements.
+
+
+
+
+
+

@@ -78,3 +78,11 @@ export abstract class GenericService {
 }
 
 
+  static getInstance() {
+    if (OnBoardingService.serviceInstance === null) {
+      OnBoardingService.serviceInstance = new OnBoardingService();
+    }
+    return this.serviceInstance;
+  }
+
+

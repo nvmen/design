@@ -34,5 +34,47 @@ Note that this example allows requests from any origin, which may not be secure 
 
 
 
+import AxiosInstance from '../../utils/config/axiosInterceptor';
+
+export abstract class GenericService {
+  protected apiRootURL: string;
+  protected axiosInstance;
+
+  protected constructor() {
+    this.apiRootURL = process.env.NEXT_PUBLIC_API_URL || '';
+    this.axiosInstance = AxiosInstance;
+  }
+
+  /**
+   * get from url
+   * @param apiUrl
+   */
+  get<T>(apiUrl: string): Promise<T> {
+    const url = this.apiRootURL + apiUrl;
+    return this.axiosInstance.get(url).then((response) => {
+      return <T>response.data;
+    });
+  }
+
+  /**
+   * base post method
+   * @param apiUrl
+   * @param body
+   */
+  post<T>(apiUrl: string, body: Object): Promise<T> {
+    const url = this.apiRootURL + apiUrl;
+    return this.axiosInstance.post(url, body).then((response) => {
+      return <T>response.data;
+    });
+  }
+
+  /**
+   * get back end url with base route
+   * @param url
+   */
+  getBackendUrl(url: string) {
+    return this.apiRootURL + url;
+  }
+}
 
 

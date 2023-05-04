@@ -98,3 +98,6 @@ azure:
     token-uri: https://login.microsoftonline.com/<your-tenant-id>/oauth2/v2.0/token
     user-info-uri: https://graph.microsoft.com/v1.0/me/
 
+
+// https://mvnrepository.com/artifact/com.microsoft.azure/azure-active-directory-spring-boot-starter
+implementation("com.microsoft.azure:azure-active-directory-spring-boot-starter:3.0.0")

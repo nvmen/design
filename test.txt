@@ -107,3 +107,5 @@ implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-ser
 // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-oauth2-resource-server
 implementation group: 'org.springframework.boot', name: 'spring-boot-starter-oauth2-resource-server', version: '3.0.6'
 
+https://github.com/Azure-Samples/ms-identity-java-spring-tutorial/blob/main/3-Authorization-II/protect-web-api/resource-api/src/main/java/com/microsoft/azuresamples/msal4j/msidentityspringbootwebapi/SecurityConfig.java
+

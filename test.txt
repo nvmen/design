@@ -103,3 +103,7 @@ azure:
 implementation("com.microsoft.azure:azure-active-directory-spring-boot-starter:3.0.0")
 
 implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server:3.0.6'
+
+// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-oauth2-resource-server
+implementation group: 'org.springframework.boot', name: 'spring-boot-starter-oauth2-resource-server', version: '3.0.6'
+

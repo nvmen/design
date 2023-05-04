@@ -86,3 +86,4 @@ export abstract class GenericService {
   }
 
 
+https://github.com/jasonshave/JavaClientCredentialFlowWebAPI/blob/master/serverprototype/src/main/java/com/microsoft/javamanagedidentitywebapi/serverprototype/SecurityConfiguration.java

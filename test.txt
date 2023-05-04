@@ -113,3 +113,5 @@ https://github.com/Azure-Samples/ms-identity-java-spring-tutorial/blob/main/3-Au
 implementation group: 'com.azure', name: 'azure-core', version: '1.38.0'
 https://github.com/AzureAD/microsoft-authentication-library-for-java
 
+implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '3.0.6'
+

@@ -87,3 +87,14 @@ export abstract class GenericService {
 
 
 https://github.com/jasonshave/JavaClientCredentialFlowWebAPI/blob/master/serverprototype/src/main/java/com/microsoft/javamanagedidentitywebapi/serverprototype/SecurityConfiguration.java
+
+
+azure:
+  activedirectory:
+    tenant-id: <your-tenant-id>
+    client-id: <your-client-id>
+    client-secret: <your-client-secret>
+    authorization-uri: https://login.microsoftonline.com/<your-tenant-id>/oauth2/v2.0/authorize
+    token-uri: https://login.microsoftonline.com/<your-tenant-id>/oauth2/v2.0/token
+    user-info-uri: https://graph.microsoft.com/v1.0/me/
+

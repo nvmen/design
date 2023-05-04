@@ -109,3 +109,6 @@ implementation group: 'org.springframework.boot', name: 'spring-boot-starter-oau
 
 https://github.com/Azure-Samples/ms-identity-java-spring-tutorial/blob/main/3-Authorization-II/protect-web-api/resource-api/src/main/java/com/microsoft/azuresamples/msal4j/msidentityspringbootwebapi/SecurityConfig.java
 
+// https://mvnrepository.com/artifact/com.azure/azure-core
+implementation group: 'com.azure', name: 'azure-core', version: '1.38.0'
+

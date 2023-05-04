@@ -101,3 +101,5 @@ azure:
 
 // https://mvnrepository.com/artifact/com.microsoft.azure/azure-active-directory-spring-boot-starter
 implementation("com.microsoft.azure:azure-active-directory-spring-boot-starter:3.0.0")
+
+implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server:3.0.6'

@@ -116,3 +116,7 @@ https://github.com/AzureAD/microsoft-authentication-library-for-java
 implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '3.0.6'
 
 https://github.com/Azure-Samples/ms-identity-java-webapi/blob/edbd399155341556e3871065d1b8b4be2e9cbce0/msal-obo-sample/src/main/resources/application.properties
+
+// https://mvnrepository.com/artifact/com.nimbusds/oauth2-oidc-sdk
+runtimeOnly 'com.nimbusds:oauth2-oidc-sdk:10.8'
+

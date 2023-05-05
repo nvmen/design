@@ -1,3 +1,54 @@
+@Configuration
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+public class SecurityConfig extends AADResourceServerWebSecurityConfigurerAdapter {
+
+    @Autowired
+    private TokenValidationService tokenValidationService;
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        super.configure(http);
+
+        http.authorizeRequests()
+            .antMatchers("/api/**")
+            .authenticated()
+            .and()
+            .oauth2ResourceServer()
+            .jwt()
+            .decoder(this.tokenValidationService);
+    }
+}
+
+
+@Service
+public class TokenValidationService implements JwtDecoder {
+
+    private final JwtDecoder jwtDecoder;
+
+    @Autowired
+    public TokenValidationService(@Value("${azure.activedirectory.client-id}") String clientId,
+                                  @Value("${azure.activedirectory.authority}") String authority) {
+
+        IPublicClientApplication pca = PublicClientApplication.builder(clientId)
+                .authority(authority)
+                .build();
+
+        this.jwtDecoder = NimbusJwtDecoder.withJwkSetUri(pca.getOpenIdConfiguration().getJwksUri()).build();
+    }
+
+    @Override
+    public Jwt decode(String token) throws JwtException {
+        return this.jwtDecoder.decode(token);
+    }
+}
+
+===================================================================
+
+
+
+
+
 // https://mvnrepository.com/artifact/com.azure/azure-core
 implementation 'com.azure:azure-core:1.38.0'
 

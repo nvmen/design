@@ -1,5 +1,7 @@
 // https://mvnrepository.com/artifact/com.fasterxml.woodstox/woodstox-core
 implementation 'com.fasterxml.woodstox:woodstox-core:6.5.1'
+// https://mvnrepository.com/artifact/org.springframework.security/spring-security-oauth2-client
+implementation 'org.springframework.security:spring-security-oauth2-client:6.0.3'
 
 
 https://github.com/Azure-Samples/ms-identity-java-webapi/tree/edbd399155341556e3871065d1b8b4be2e9cbce0/msal-obo-sample/src/main/java/com/microsoft/azure/msalobosample

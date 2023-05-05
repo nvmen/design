@@ -1,3 +1,16 @@
+// Get the access token from the AuthenticationResult object
+String accessToken = authResult.accessToken();
+
+// Create JwtConsumer object with Jwks object
+JwkProvider jwkProvider = new UrlJwkProvider(new URL(authority + ".well-known/openid-configuration/jwks"));
+Jwks jwks = new Jwks(jwkProvider);
+JwtConsumerBuilder builder = new JwtConsumerBuilder()
+        .setVerificationKeyResolver(new JwksVerificationKeyResolver(jwks));
+JwtConsumer jwtConsumer = builder.build();
+
+// Validate the JWT token
+JwtContext jwtContext = jwtConsumer.validate(accessToken);
+
 @Service
 public class TokenValidationService implements JwtDecoder {
 

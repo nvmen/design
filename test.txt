@@ -1,3 +1,5 @@
+https://github.com/Azure-Samples/ms-identity-java-webapi/tree/edbd399155341556e3871065d1b8b4be2e9cbce0/msal-obo-sample/src/main/java/com/microsoft/azure/msalobosample
+
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {

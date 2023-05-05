@@ -1,4 +1,27 @@
 https://github.com/Azure-Samples/ms-identity-java-webapi/tree/edbd399155341556e3871065d1b8b4be2e9cbce0/msal-obo-sample/src/main/java/com/microsoft/azure/msalobosample
+// https://mvnrepository.com/artifact/org.springframework.security/spring-security-jwt
+implementation 'org.springframework.security:spring-security-jwt:1.0.5.RELEASE'
+
+// https://mvnrepository.com/artifact/org.springframework.security.oauth/spring-security-oauth2
+implementation 'org.springframework.security.oauth:spring-security-oauth2:2.4.2.RELEASE'
+
+
+
+dependencies {
+	compile "com.microsoft.azure:msal4j:0.5.0-preview"
+	compile "com.nimbusds:oauth2-oidc-sdk:6.5"
+	compile "org.json:json:20090211"
+	compile "org.projectlombok:lombok:*"
+	compile "org.springframework.boot:spring-boot-starter-thymeleaf:*"
+	compile "org.springframework.boot:spring-boot-starter-web:*"
+	testCompile "org.springframework.boot:spring-boot-starter-test:*"
+	compile "org.springframework.security.oauth:spring-security-oauth2:2.3.6.RELEASE"
+	compile "org.springframework.security:spring-security-jwt:1.0.10.RELEASE"
+	compile "org.springframework.boot:spring-boot-starter-cache:*"
+	compile "com.google.guava:guava:20.0"
+}
+
+
 
 @Configuration
 @EnableWebSecurity

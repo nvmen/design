@@ -1,3 +1,8 @@
+// https://mvnrepository.com/artifact/com.azure/azure-core
+implementation 'com.azure:azure-core:1.38.0'
+
+
+
 // https://mvnrepository.com/artifact/com.fasterxml.woodstox/woodstox-core
 implementation 'com.fasterxml.woodstox:woodstox-core:6.5.1'
 // https://mvnrepository.com/artifact/org.springframework.security/spring-security-oauth2-client

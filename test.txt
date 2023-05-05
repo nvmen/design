@@ -43,6 +43,49 @@ public class TokenValidationService implements JwtDecoder {
     }
 }
 
+
+
+@Service
+public class TokenValidationService implements JwtDecoder {
+
+    private final JwtDecoder jwtDecoder;
+
+    @Autowired
+    public TokenValidationService(@Value("${azure.activedirectory.client-id}") String clientId,
+                                  @Value("${azure.activedirectory.authority}") String authority) {
+
+        String openIdConfigUrl = String.format("%s/.well-known/openid-configuration", authority);
+        HttpClient httpClient = HttpClient.newBuilder().build();
+        HttpRequest httpRequest = HttpRequest.newBuilder()
+                .uri(URI.create(openIdConfigUrl))
+                .GET()
+                .build();
+
+        try {
+            HttpResponse<String> httpResponse = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+            String openIdConfigJson = httpResponse.body();
+
+            OpenIdConfiguration openIdConfig = JsonHelper.convertJsonToObject(openIdConfigJson, OpenIdConfiguration.class);
+
+            IClientCredential credential = ClientCredentialFactory.createFromSecret(clientSecret);
+            ConfidentialClientApplication cca = ConfidentialClientApplication.builder(clientId, credential)
+                    .authority(authority)
+                    .build();
+
+            this.jwtDecoder = NimbusJwtDecoder.withJwkSetUri(openIdConfig.getJwksUri())
+                    .jwsAlgorithm(SignatureAlgorithm.parse(openIdConfig.getIdTokenSigningAlg()))
+                    .build();
+        } catch (Exception e) {
+            throw new RuntimeException("Error retrieving OpenID configuration", e);
+        }
+    }
+
+    @Override
+    public Jwt decode(String token) throws JwtException {
+        return this.jwtDecoder.decode(token);
+    }
+}
+
 ===================================================================
 
 

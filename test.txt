@@ -1,3 +1,46 @@
+@Service
+public class TokenValidationService implements JwtDecoder {
+
+    private final JwtDecoder jwtDecoder;
+
+    @Autowired
+    public TokenValidationService(@Value("${azure.activedirectory.client-id}") String clientId,
+                                  @Value("${azure.activedirectory.authority}") String authority) {
+        String openIdConfigUrl = String.format("%s/.well-known/openid-configuration", authority);
+        HttpClient httpClient = HttpClient.newBuilder().build();
+        HttpRequest httpRequest = HttpRequest.newBuilder()
+                .uri(URI.create(openIdConfigUrl))
+                .GET()
+                .build();
+
+        try {
+            HttpResponse<String> httpResponse = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+            String openIdConfigJson = httpResponse.body();
+
+            Map<String, Object> openIdConfigMap = new ObjectMapper().readValue(openIdConfigJson, new TypeReference<Map<String, Object>>() {});
+            String jwksUri = (String) openIdConfigMap.get("jwks_uri");
+            String idTokenSigningAlg = (String) openIdConfigMap.get("id_token_signing_alg_values_supported").toString().replaceAll("\\[", "").replaceAll("\\]", "");
+
+            IClientCredential credential = ClientCredentialFactory.createFromSecret(clientSecret);
+            ConfidentialClientApplication cca = ConfidentialClientApplication.builder(clientId, credential)
+                    .authority(authority)
+                    .build();
+
+            this.jwtDecoder = NimbusJwtDecoder.withJwkSetUri(jwksUri)
+                    .jwsAlgorithm(SignatureAlgorithm.parse(idTokenSigningAlg))
+                    .build();
+        } catch (Exception e) {
+            throw new RuntimeException("Error retrieving OpenID configuration", e);
+        }
+    }
+
+    @Override
+    public Jwt decode(String token) throws JwtException {
+        return this.jwtDecoder.decode(token);
+    }
+}
+
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)

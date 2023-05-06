@@ -1,3 +1,60 @@
+@Configuration
+public class MSALConfiguration {
+
+    @Value("${azure.activedirectory.client-id}")
+    private String clientId;
+
+    @Value("${azure.activedirectory.client-secret}")
+    private String clientSecret;
+
+    @Value("${azure.activedirectory.authority}")
+    private String authority;
+
+    @Bean
+    public IConfidentialClientApplication confidentialClientApplication() throws MalformedURLException {
+        return ConfidentialClientApplication.builder(clientId, ClientCredentialFactory.createFromSecret(clientSecret))
+                .authority(authority)
+                .build();
+    }
+}
+
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private IConfidentialClientApplication confidentialClientApplication;
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests()
+            .anyRequest().authenticated()
+            .and()
+            .oauth2ResourceServer()
+            .bearerTokenFilter(new AzureADBearerTokenAuthenticationFilter(confidentialClientApplication)).jwt();
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 https://github.com/Azure-Samples/ms-identity-java-webapi/tree/edbd399155341556e3871065d1b8b4be2e9cbce0/msal-obo-sample/src/main/java/com/microsoft/azure/msalobosample
 https://stackoverflow.com/questions/62082149/validate-azure-token-in-a-spring-boot-application
 

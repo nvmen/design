@@ -1,1 +1,52 @@
-https://github.com/Azure-Samples/azure-spring-boot-samples/tree/main/aad/spring-cloud-azure-starter-active-directory
+import { html, css, LitElement } from 'lit';
+
+class BreadcrumbComponent extends LitElement {
+  static styles = css`
+    .breadcrumb {
+      margin-bottom: 10px;
+    }
+
+    .breadcrumb-item {
+      display: inline-block;
+      margin-right: 5px;
+    }
+
+    .breadcrumb-item:last-child {
+      font-weight: bold;
+    }
+
+    .breadcrumb-item a {
+      text-decoration: none;
+      color: blue;
+    }
+  `;
+
+  static properties = {
+    path: { type: Array },
+  };
+
+  constructor() {
+    super();
+    this.path = [];
+  }
+
+  render() {
+    return html`
+      <div class="breadcrumb">
+        ${this.path.map(
+          (item, index) =>
+            html`
+              <span class="breadcrumb-item">
+                ${index < this.path.length - 1
+                  ? html`<a href="${item.url}">${item.label}</a>`
+                  : item.label}
+              </span>
+              ${index < this.path.length - 1 ? html`&gt;` : ''}
+            `
+        )}
+      </div>
+    `;
+  }
+}
+
+customElements.define('breadcrumb-component', BreadcrumbComponent);

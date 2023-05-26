@@ -1,1 +1,2 @@
 https://stackoverflow.com/questions/24057040/content-security-policy-spring-security
+https://stackoverflow.com/questions/33057291/how-to-set-common-format-for-tolocalestring

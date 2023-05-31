@@ -1,2 +1,2 @@
-https://stackoverflow.com/questions/24057040/content-security-policy-spring-security
-https://stackoverflow.com/questions/33057291/how-to-set-common-format-for-tolocalestring
+https://stackoverflow.com/questions/70432822/how-to-access-the-location-params-of-the-vaadin-router-using-lit
+https://hilla.dev/docs/lit/guides/routing#lifecycle

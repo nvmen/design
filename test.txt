@@ -1,2 +1,22 @@
 https://stackoverflow.com/questions/70432822/how-to-access-the-location-params-of-the-vaadin-router-using-lit
 https://hilla.dev/docs/lit/guides/routing#lifecycle
+
+router.addRoutes([
+  {
+    path: 'my-route',
+    component: 'my-route-view',
+    action: () => {
+      // Code to be executed before navigating to "my-route"
+      console.log('Before navigating to my-route');
+    },
+    beforeenter: (location, commands, router) => {
+      // Code to be executed before navigating to "my-route"
+      console.log('Before navigating to my-route');
+    },
+    afterNavigation: (location, commands, router) => {
+      // Code to be executed after navigating to "my-route"
+      console.log('After navigating to my-route');
+    },
+  },
+]);
+

@@ -1,13 +1,13 @@
 [
   {
     "processName": "firefox",
-    "Sunday": "9-23",
-    "Monday": "8-11;19-21",
-    "Tuesday": "8-11;19-21",
-    "Wednesday": "8-11;19-21",
-    "Thursday": "8-11;19-21",
-    "Friday": "8-11;19-21",
-    "Saturday": "8-11;19-21"
+    "Sunday": "10-23",
+    "Monday": "8-11;21-22",
+    "Tuesday":  "8-11;21-22",
+    "Wednesday": "8-11;21-22",
+    "Thursday":  "8-11;21-22",
+    "Friday":  "8-11;21-22",
+    "Saturday": "8-11;21-22",
   },
   {
     "processName": "gamingservices",

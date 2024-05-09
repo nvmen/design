@@ -2,11 +2,11 @@
    {
     "processName": "gamingservicesnet",
     "Sunday": "",
-    "Monday": "",
-    "Tuesday":  "",
-    "Wednesday": "8-11;21-22",
-    "Thursday":  "8-11;21-22",
-    "Friday":  "8-11;21-22",
+    "Monday": "8-21",
+    "Tuesday":  "8-21",
+    "Wednesday": "8-21",
+    "Thursday":  "8-21",
+    "Friday":  "8-21",
     "Saturday": "",
   },
    {
@@ -32,11 +32,11 @@
   {
     "processName": "gamingservices",
     "Sunday": "",
-    "Monday": "",
-    "Tuesday":  "8-11;21-22",
-    "Wednesday": "8-11;21-22",
-    "Thursday":  "",
-    "Friday":  "",
+    "Monday": "8-21",
+    "Tuesday":  "8-21",
+    "Wednesday": "8-21",
+    "Thursday":  "8-21",
+    "Friday":  "8-21",
     "Saturday": "",
   }
 

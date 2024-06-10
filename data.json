@@ -10,6 +10,16 @@
     "Saturday": "19-22;13-15",
   },
    {
+    "processName": "GameBarFTServer",
+    "Sunday": "19-22;13-15",
+    "Monday": "19-22;13-15",
+    "Tuesday":  "19-22;13-15",
+    "Wednesday": "19-22;13-15",
+    "Thursday":  "19-22;13-15",
+    "Friday":  "19-22;13-15",
+    "Saturday": "19-22;13-15",
+  },
+   {
     "processName": "msedge",
      "Sunday": "19-22;13-15",
     "Monday": "19-22;13-15",

@@ -1,7 +1,7 @@
 
 [
     {
-    "processName": "java",
+    "processName": "java1",
     "Sunday": "19-22;13-15",
     "Monday": "19-22;13-15",
     "Tuesday":  "19-22;13-15",
@@ -11,7 +11,7 @@
     "Saturday": "20-22;13-15"
   },
    {
-    "processName": "gamingservicesnet",
+    "processName": "gamingservicesnet1",
     "Sunday": "19-22;13-15",
     "Monday": "19-22;13-15",
     "Tuesday":  "19-22;13-15",
@@ -21,7 +21,7 @@
     "Saturday": "19-22;13-15"
   },
    {
-    "processName": "GameBarFTServer",
+    "processName": "GameBarFTServer1",
     "Sunday": "19-22;13-15",
     "Monday": "19-22;13-15",
     "Tuesday":  "19-22;13-15",
@@ -31,7 +31,7 @@
     "Saturday": "19-22;13-15"
   },
     {
-    "processName": "GameBar",
+    "processName": "GameBar1",
     "Sunday": "19-22;13-15",
     "Monday": "19-22;13-15",
     "Tuesday":  "19-22;13-15",
@@ -41,7 +41,7 @@
     "Saturday": "19-22;13-15"
   },
    {
-    "processName": "msedge",
+    "processName": "msedge1",
      "Sunday": "19-22;13-15",
     "Monday": "19-22;13-15",
     "Tuesday":  "19-22;13-15",
@@ -51,7 +51,7 @@
     "Saturday": "19-22;13-15"
   },
   {
-    "processName": "firefox",
+    "processName": "firefox1",
      "Sunday": "8-21",
     "Monday": "8-21",
     "Tuesday":  "8-21",

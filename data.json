@@ -1,7 +1,7 @@
 
 [
     {
-    "processName": "java",
+    "processName": "java1",
     "Sunday": "19-22;13-15",
     "Monday": "8-12;13-19",
     "Tuesday":  "19-22;13-15",
@@ -11,7 +11,7 @@
     "Saturday": "20-22;13-15"
   },
    {
-    "processName": "gamingservicesnet",
+    "processName": "gamingservicesnet1",
     "Sunday": "19-22;13-15",
     "Monday": "8-12;13-19",
     "Tuesday":  "19-22;13-15",
@@ -21,7 +21,7 @@
     "Saturday": "19-22;13-15"
   },
    {
-    "processName": "GameBarFTServer",
+    "processName": "GameBarFTServer1",
     "Sunday": "19-22;13-15",
     "Monday": "8-12;13-19",
     "Tuesday":  "19-22;13-15",
@@ -31,7 +31,7 @@
     "Saturday": "19-22;13-15"
   },
     {
-    "processName": "GameBar",
+    "processName": "GameBar1",
     "Sunday": "19-22;13-15",
     "Monday": "8-12;13-19",
     "Tuesday":  "19-22;13-15",
@@ -61,7 +61,7 @@
     "Saturday": "8-21"
   },
   {
-    "processName": "gamingservices",
+    "processName": "gamingservices1",
      "Sunday": "19-22;13-15",
     "Monday": "19-22;13-15",
     "Tuesday":  "19-22;13-15",
